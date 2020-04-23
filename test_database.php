@@ -9,7 +9,7 @@
      *
      * @since 1.0.0
      */
-    include '/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout.php';
+    include '/sf-includes/auth/sabian_eg_workout.php';
     
     if ( ! defined( 'ABSPATH' ) ) {
     	exit; // Exit if accessed directly.
@@ -50,58 +50,58 @@
                         </ul>
                         <!-- TODO: Table Search/Entry Forms -->
                     </div>
-            <div class="center" id="table-display" style="height:400px;overflow:scroll;padding-left:10px;padding-right:10px;">
+		    <div class="center" id="table-display" style="height:400px;overflow:scroll;padding-left:10px;padding-right:10px;">
 <?php
-                    $sql = 'SELECT * FROM log_view;';
-                    $res = mysqli_query($conn, $sql);
-                    $chk = mysqli_num_rows($res);
-                    $non = 'Database not found (line 57)';
-                    $err = 'mysqli error (line 57)';
-                    
-                    if($chk == 0)
-                    {
-                        echo $non;
-                    }
-                    else if ($chk > 0)
-                    {
-?>                      <!-- display db table column titles -->
-                        <table class="t01" border="0" cellspacing="2"         cellpadding="2"> 
-                            <tr> 
-                                <th>Date    </th> 
-                                <th>Type    </th> 
-                                <th>Count   </th> 
-                                <th>Points  </th> 
-                            </tr>
-<?php   
-                            //todo: display db table data
-                            while ($row = mysqli_fetch_assoc($res))
-                            {
-                                $field1name = $row["Date"   ];
-                                $field2name = $row["Workout"];
-                                $field3name = $row["Count"  ];
-                                $field4name = $row["Points" ];
- 
-                                echo
-                                '
-                                    <tr> 
-                                        <td>'.$field1name.'</td>
-                                        <td>'.$field2name.'</td>
-                                        <td>'.$field3name.'</td>
-                                        <td>'.$field4name.'</td>
-                                    </tr>
-                                ';
-                            }
-?>  
-                        </table><!-- t01 -->
-<?php
-                    }
-                    else
-                    {
-                        echo $err;
-                    }
+                    	$sql = 'SELECT * FROM log_view;';
+                    	$res = mysqli_query($conn, $sql);
+                    	$chk = mysqli_num_rows($res);
+                    	$non = 'Database not found (line 57)';
+                    	$err = 'mysqli error (line 57)';
+                    	
+                    	if($chk == 0)
+                    	{
+                    	    echo $non;
+                    	}
+                    	else if ($chk > 0)
+                    	{
+?>                  	    <!-- display db table column titles -->
+                    	    <table class="t01" border="0" cellspacing="2"         cellpadding="2"> 
+                    	        <tr> 
+                    	            <th>Date    </th> 
+                    	            <th>Type    </th> 
+                    	            <th>Count   </th> 
+                    	            <th>Points  </th> 
+                    	        </tr>
+<?php   	
+                    	        //todo: display db table data
+                    	        while ($row = mysqli_fetch_assoc($res))
+                    	        {
+                    	            $field1name = $row["Date"   ];
+                    	            $field2name = $row["Workout"];
+                    	            $field3name = $row["Count"  ];
+                    	            $field4name = $row["Points" ];
+ 	
+                    	            echo
+                    	            '
+                    	                <tr> 
+                    	                    <td>'.$field1name.'</td>
+                    	                    <td>'.$field2name.'</td>
+                    	                    <td>'.$field3name.'</td>
+                    	                    <td>'.$field4name.'</td>
+                    	                </tr>
+                    	            ';
+                    	        }
+?>  	
+                    	    </table><!-- t01 -->
+<?php	
+                    	}
+                    	else
+                    	{
+                    	    echo $err;
+                    	}
 ?>
                     </div><!-- table-display -->
-                </div><!-- columns-2 -->
+            	</div><!-- columns-2 -->
 <?php
 		get_content();
 		astra_primary_content_bottom();
