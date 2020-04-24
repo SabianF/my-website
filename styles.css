@@ -53,10 +53,10 @@ table.t01 tr:nth-child(odd)
     -moz-column-count:      2;
     -ms-column-count:       2;
     column-count:           2;
-    -webkit-column-width:   300px;
-    -moz-column-width:      300px;
-    -ms-column-width:       300px;
-    column-width:           300px;
+    -webkit-column-width:   200px;
+    -moz-column-width:      200px;
+    -ms-column-width:       200px;
+    column-width:           200px;
 }
 .columns-3 {
     -webkit-column-count:   3;
