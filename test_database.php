@@ -5,7 +5,7 @@
      * @author Sabian Finogwar
      * @since 1.0.0
      */
-    include '/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout.php';
+    include_once '/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout.php';
     
     if ( ! defined( 'ABSPATH' ) ) {
     	exit; // Exit if accessed directly.
@@ -32,7 +32,7 @@
         
         <div id="primary" class="content-area primary" >
             <div id="const" style="margin-left:auto;margin-right:auto;margin-bottom:50px;">
-                <h2 class="center">Under Construction!</h2    >
+                <h2 class="title-header" style="text-shadow: 2px 2px 10px #CCC;text-align:center;">Under Construction!</h2>
                 <p class="center" style="padding:10px;">
                     We're still working on this functionality but don't worry, we'll have the rest of it ready, soon! Check back later!
                 </p>
@@ -52,25 +52,35 @@
                     <h2 class="center">Testing Area</h2>
                     <p class="center">Currently testing forms to search within database.</p>
                     <!-- TODO: Table Search/Entry Forms -->
-                    <div class="column">
-                        <h3>Form 1</h3>
-                        <form>
-                            <label for ="date">Date:</label><br>
-                            <input type="text" id="date" name="date"><br>
-                            
-                            <label for ="type">Type:</label><br>
-                            <input type="text" id="type" name="type">
-                            
-                            <button type="button" name="submit">Submit</button>
-                        </form>
-                        <h3>Form 2</h3>
-                        <form>
-                            <label for="fname">First name:</label><br>
-                            <input type="text" id="fname" name="fname"><br>
-                            <label for="lname">Last name:</label><br>
-                            <input type="text" id="lname" name="lname">
-                            <button type="button" name="submit">Submit</button>
-                        </form>
+                    <div class="columns-2">
+                        <div style="padding: 5%;">
+                            <h3>Test Form Filter</h3>
+                            <form action "/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout_form.php" method="POST">
+                                <label id="form-label" for ="date">Date:</label><br>
+                                <input type="date" id="date" name="date"><br>
+                                <label id="form-label" for ="type">Type:</label><br>
+                                <select id="type">
+                                    <option value="OMW">    OMW     </option>
+                                    <option value="OMWx5">  OMWx5   </option>
+                                    <option value="EKCx10"> EKCx10  </option>
+                                    <option value="WPHx10"> WPHx10  </option>
+                                </select><br>
+                                <button id="form-button" type="submit" name="submit" action "/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout_form.php" method="POST">Submit</button>
+                            </form>
+                        </div>
+                        <div style="padding: 5%;">
+                            <h3>Test Form Sort</h3>
+                            <form>
+                                <label id="form-label" for ="type">Type:</label><br>
+                                <select id="type">
+                                    <option value="Date">  Date     </option>
+                                    <option value="Type">  Type     </option>
+                                    <option value="Count"> Count    </option>
+                                    <option value="Points">Points   </option>
+                                </select><br>
+                                <button id="form-button" type="button" name="submit">Submit</button>
+                            </form>
+                        </div>
                     </div><!-- #column -->
                 </div>
                 <div class="center" id="table-display" style="height:500px    ;overflow:scroll;padding-left:10px;padding-right:10px;">
@@ -86,37 +96,37 @@
                 	    echo $non;
                 	}
                 	else if ($chk > 0)
-                	{
-?>                      	    <!-- display db table column titles -->
-        	        <table class="t01" border="0" cellspacing="2"             cellpadding="2"> 
-            	        <tr> 
-            	            <th>Date    </th> 
-            	            <th>Type    </th> 
-            	            <th>Count   </th> 
-            	            <th>Points  </th> 
-            	        </tr>
-<?php       	
-            	        //display db table data
-            	        while ($row = mysqli_fetch_assoc($res))
-            	        {
-            	            $field1name = $row["Date"   ];
-            	            $field2name = $row["Workout"];
-            	            $field3name = $row["Count"  ];
-            	            $field4name = $row["Points" ];
-
-            	            echo
-            	            '
-            	                <tr> 
-            	                    <td>'.$field1name.'</td>
-            	                    <td>'.$field2name.'</td>
-            	                    <td>'.$field3name.'</td>
-            	                    <td>'.$field4name.'</td>
-            	                </tr>
-            	            ';
-            	        }
-?>  	    
-            	    </table><!-- t01 -->
-<?php	    
+                    {
+?>                      <!-- display db table column titles -->
+        	            <table class="t01" border="0" cellspacing="2"                 cellpadding="2"> 
+            	            <tr> 
+            	                <th>Date    </th> 
+            	                <th>Type    </th> 
+            	                <th>Count   </th> 
+            	                <th>Points  </th> 
+            	            </tr>
+<?php       	    
+            	            //display db table data
+            	            while ($row = mysqli_fetch_assoc($res))
+            	            {
+            	                $field1name = $row["Date"   ];
+            	                $field2name = $row["Workout"];
+            	                $field3name = $row["Count"  ];
+            	                $field4name = $row["Points" ];
+    
+            	                echo
+            	                '
+            	                    <tr> 
+            	                        <td>'.$field1name.'</td>
+            	                        <td>'.$field2name.'</td>
+            	                        <td>'.$field3name.'</td>
+            	                        <td>'.$field4name.'</td>
+            	                    </tr>
+            	                ';
+            	            }
+?>  	        
+            	        </table><!-- t01 -->
+<?php	        
                 	}
                 	else
                 	{
@@ -125,7 +135,10 @@
 ?>  
                 </div><!-- #table-display -->
         	</div><!-- #columns-2 -->
-<?php   
+<?php
+            mysqli_free_result($res);
+            mysqli_close($conn);
+            
 	        get_content();
 	        astra_primary_content_bottom();
 ?>  
