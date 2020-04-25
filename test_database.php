@@ -139,7 +139,7 @@
             mysqli_free_result($res);
             mysqli_close($conn);
             
-	        get_content();
+            the_content();
 	        astra_primary_content_bottom();
 ?>  
 	    </div><!-- #primary -->
