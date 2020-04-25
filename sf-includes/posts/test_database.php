@@ -1,11 +1,11 @@
 <?php
     /**
-     * STATUS = ALL OVER AGAIN
+     * STATUS = CONSTRUCTION
      *
      * @author Sabian Finogwar
      * @since 1.0.0
      */
-    include_once '/home2/sabian/public_html/sf-includes/auth/sabian_eg_workout.php';
+    include_once '../auth/sabian_eg_workout.php';
     
     if ( ! defined( 'ABSPATH' ) ) {
     	exit; // Exit if accessed directly.
@@ -134,7 +134,7 @@
                 	}
 ?>  
                 </div><!-- #table-display -->
-        	</div><!-- #columns-2 -->
+	    </div><!-- #columns-2 -->
 <?php
             mysqli_free_result($res);
             mysqli_close($conn);
