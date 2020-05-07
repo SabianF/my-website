@@ -45,8 +45,8 @@
      * ========== v Database section v ==========
      */
     $sql = '';
-    $non = 'Database not found';
-    $err = 'mysqli error';
+    $non = '<br>Database not found<br>';
+    $err = '<br>mysqli error<br>';
     
     /**
      * Filter table items based on inputs
@@ -58,120 +58,115 @@
     }
     
     /**
-     * Sort table items based on inputs
-     */
-    function db_sort()
-    {
-        return 0;
-    }
-    
-    /**
      * Display table from db
      * 
-     * TODO: Currently not functioning
-     *          Code stops when using $conn (currently echo $conn; also tested
-     *          using mysqli_query($conn, $sql);)
+     * TODO: dynamically display table column headers and rows
      */
     function db_display()
     {
-        include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	global $sql, $non, $err;
     	
     	/**
-    	 * Get table headers/fields
+    	 * Get table headers/fields and store in array
     	 */
     	$sql = 
     	"
-    	    SELECT COLUMN_NAME
-    	    FROM INFORMATION_SCHEMA.COLUMNS
-    	    WHERE TABLE_NAME = N'log_view';
+    	    SELECT  COLUMN_NAME
+    	    FROM    INFORMATION_SCHEMA.COLUMNS
+    	    WHERE   TABLE_NAME = N'log_view';
     	";
     	
+    	/**
+    	 * Connect to db, get column headers, and store in array
+    	 */
+    	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	$res = mysqli_query($conn, $sql);
+    	mysqli_close($conn);
     	$chk = mysqli_num_rows($res);
+    	
     	
     	if(!($chk > 0))
     	{
-    	    die($non."<br>using ".$sql);
+    	    die($non."using ".$sql);
     	}
     	
 	    $columns = [];
-	    echo "Printing sql results...<br>";
 	    while ($row = mysqli_fetch_assoc($res))
 	    {
-	        echo $row['COLUMN_NAME']."<br>";
 	        $columns[]=$row['COLUMN_NAME'];
 	    }
-	    echo "<br>Printing columns array contents...<br>";
-	    for ($i=0;$i<count($columns);$i++)
-	    {
-	        echo $columns[$i]."<br>";
-	    }
+    	mysqli_free_result($res);
     	
     	/**
-    	 * todo
+    	 * Determine which column to sort by
     	 */
-    	$sort_column;
+    	$sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
     	
     	/**
-    	 * todo
+    	 * Determine column sort order
     	 */
-    	$sort_order;
+    	$sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
     	
     	/**
-    	 * Retrieve & display rows in a formatted HTML table
+    	 * Retrieve & display headers & rows in formatted HTML table
     	 */
     	$sql =
     	"
-    	    SELECT *
-    	    FROM log_view;
+    	    SELECT      *
+    	    FROM        log_view
+    	    ORDER BY    ".$sort_column." ".$sort_order.";
     	";
+    	
+    	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	$res = mysqli_query($conn, $sql);
+    	mysqli_close($conn);
     	$chk = mysqli_num_rows($res);
     	
-    	//Display table if entries exist, otherwise display error
-    	if($chk == 0)
+    	if (!($chk > 0))
     	{
-    	    echo $non;
+    	    die($non);
     	}
-    	else if ($chk > 0)
-        {
+    	
+    	$up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order); 
+	    $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+	    $add_class = ' class="highlight"';
 ?>
-            <!-- display db table column titles -->
-            <table class="t01" border="0" cellspacing="2" cellpadding="2"> 
-	            <tr> 
-	                <th>Date    </th> 
-	                <th>Type    </th> 
-	                <th>Count   </th> 
-	                <th>Points  </th> 
-	            </tr>
+        <!-- todo: display sortable db table headings -->
+        <table class="t01" border="0" cellspacing="2" cellpadding="2"> 
+            <tr> 
+<?php
+                for($i=0;$i<count($columns);$i++)
+                {
+                    echo '<th>'.$columns[$i].'</th>';
+?>
+                    <!-- <th><a href="tablesort.php?column=name&order=<?php echo $asc_or_desc; ?>">Name<i class="fas fa-sort<?php echo $column == 'name' ? '-' . $up_or_down : ''; ?>"></i></a></th>
+                    -->
+<?php
+                }
+?>
+            </tr>
 <?php       	    
-	            //display db table data
-	            while ($row = mysqli_fetch_assoc($res))
-	            {
-	                $field1name = $row["Date"   ];
-	                $field2name = $row["Workout"];
-	                $field3name = $row["Count"  ];
-	                $field4name = $row["Points" ];
+            //display db table data
+            while ($row = mysqli_fetch_assoc($res))
+            {
+                $field1name = $row["Date"   ];
+                $field2name = $row["Workout"];
+                $field3name = $row["Count"  ];
+                $field4name = $row["Points" ];
 
-	                echo
-	                '
-	                    <tr> 
-	                        <td>'.$field1name.'</td>
-	                        <td>'.$field2name.'</td>
-	                        <td>'.$field3name.'</td>
-	                        <td>'.$field4name.'</td>
-	                    </tr>
-	                ';
-	            }
+                echo
+                '
+                    <tr> 
+                        <td>'.$field1name.'</td>
+                        <td>'.$field2name.'</td>
+                        <td>'.$field3name.'</td>
+                        <td>'.$field4name.'</td>
+                    </tr>
+                ';
+            }
 ?>  	        
-	        </table><!-- t01 -->
-<?php	        
-    	}
-    	else
-    	{
-    	    echo $err;
-    	}
+        </table><!-- t01 -->
+<?php	   
 	    mysqli_free_result($res);
         mysqli_close($conn);
     }//db_display
