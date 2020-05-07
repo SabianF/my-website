@@ -1,6 +1,6 @@
 <?php
     /**
-     * STATUS = ALL OVER AGAIN
+     * STATUS = Under Construction
      *
      * @author Sabian Finogwar
      * @since 1.0.0
@@ -20,18 +20,18 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="/wp-content/themes/astra-child/style.css">
+    <script
+	  src="https://code.jquery.com/jquery-3.5.1.min.js"
+	  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+	  crossorigin="anonymous">
+    </script>
+    <script src="/wp-content/themes/astra-child/inc/js/script.js"></script>
 </head>
 <body>
 	<div id="primary" <?php astra_primary_class(); ?>>
 <?php
         astra_primary_content_top();
 ?>
-        <p class="center">Current working directory:<br>
-            <?php
-                echo "( ".getcwd().' )<br>';
-                path_exists("wp-content/themes/astra-child/style.css");
-            ?>
-        </p>
         <h1 class="center" style="padding-top:50px;"><?php get_the_title(get_post    (get_the_ID())) ?></h1>
         
         <div id="primary" class="content-area primary" >
@@ -59,28 +59,28 @@
                             <h3>Test Form Filter</h3>
                             <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php" method="POST">
                                 <label id="form-label" for ="date">Date:</label><br>
-                                <input type="date" id="date" name="date"><br>
-                                <label id="form-label" for ="type">Type:</label><br>
-                                <select id="type">
+                                <input type="date" id="filter-date" name="filter-date"><br>
+                                <label id="form-label" for ="filter-type">Type:</label><br>
+                                <select id="filter-type" name="filter-type">
                                     <option value="OMW">    OMW     </option>
                                     <option value="OMWx5">  OMWx5   </option>
                                     <option value="EKCx10"> EKCx10  </option>
                                     <option value="WPHx10"> WPHx10  </option>
                                 </select><br>
-                                <button id="form-button" type="submit" name="submit">Filter</button>
+                                <button id="filter-button" type="button" name="submit">Filter</button>
                             </form>
                         </div>
                         <div style="padding: 5%;">
                             <h3>Test Form Sort</h3>
                             <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php">
-                                <label id="form-label" for ="type">Type:</label><br>
-                                <select id="type">
+                                <label id="form-label" for ="sort-type">Type:</label><br>
+                                <select id="sort-type" name="sort-type">
                                     <option value="Date">  Date     </option>
                                     <option value="Type">  Type     </option>
                                     <option value="Count"> Count    </option>
                                     <option value="Points">Points   </option>
                                 </select><br>
-                                <button id="form-button" type="submit" name="submit">Sort</button>
+                                <button id="sort-button" type="button" name="sort-button">Sort</button>
                             </form>
                         </div>
                     </div><!-- #column -->
