@@ -43,6 +43,11 @@ table.t01 th
     position: sticky;
     top: 0%;
 }
+table.t01 th.highlight
+{
+    background-color: #444;
+    color: lightblue;
+}
 table.t01 tr:nth-child(even)
 {
     background-color: #EEE;
