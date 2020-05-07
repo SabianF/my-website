@@ -53,6 +53,7 @@
      */
     function db_filter()
     {
+        
         return 0;
     }
     
@@ -76,12 +77,55 @@
         include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	global $sql, $non, $err;
     	
-    	$sql =
-    	'
-    	    SELECT * FROM log_view;
-    	';
+    	/**
+    	 * Get table headers/fields
+    	 */
+    	$sql = 
+    	"
+    	    SELECT COLUMN_NAME
+    	    FROM INFORMATION_SCHEMA.COLUMNS
+    	    WHERE TABLE_NAME = N'log_view';
+    	";
     	
-    	//Retrieve db table & count rows
+    	$res = mysqli_query($conn, $sql);
+    	$chk = mysqli_num_rows($res);
+    	
+    	if(!($chk > 0))
+    	{
+    	    die($non."<br>using ".$sql);
+    	}
+    	
+	    $columns = [];
+	    echo "Printing sql results...<br>";
+	    while ($row = mysqli_fetch_assoc($res))
+	    {
+	        echo $row['COLUMN_NAME']."<br>";
+	        $columns[]=$row['COLUMN_NAME'];
+	    }
+	    echo "<br>Printing columns array contents...<br>";
+	    for ($i=0;$i<count($columns);$i++)
+	    {
+	        echo $columns[$i]."<br>";
+	    }
+    	
+    	/**
+    	 * todo
+    	 */
+    	$sort_column;
+    	
+    	/**
+    	 * todo
+    	 */
+    	$sort_order;
+    	
+    	/**
+    	 * Retrieve & display rows in a formatted HTML table
+    	 */
+    	$sql =
+    	"
+    	    SELECT *
+    	    FROM log_view;
+    	";
     	$res = mysqli_query($conn, $sql);
     	$chk = mysqli_num_rows($res);
     	
