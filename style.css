@@ -36,23 +36,31 @@ th, td
     padding: 5px;
     text-align: left;
 }
-table.t01 th
+.t01 th
 {
     background-color: black;
     color: white;
     position: sticky;
     top: 0%;
 }
-table.t01 th.highlight
+.t01 .column_sort
+{
+    color: white;
+}
+.t01 .column_sort:hover
+{
+    color: lightblue;
+}
+.t01 .highlight
 {
     background-color: #444;
     color: lightblue;
 }
-table.t01 tr:nth-child(even)
+.t01 tr:nth-child(even)
 {
     background-color: #EEE;
 }
-table.t01 tr:nth-child(odd)
+.t01 tr:nth-child(odd)
 {
     background-color: #FFF;
 }
