@@ -137,10 +137,8 @@
 <?php
                 for($i=0;$i<count($columns);$i++)
                 {
-                    echo '<th>'.$columns[$i].'</th>';
 ?>
-                    <!-- <th><a href="tablesort.php?column=name&order=<?php echo $asc_or_desc; ?>">Name<i class="fas fa-sort<?php echo $column == 'name' ? '-' . $up_or_down : ''; ?>"></i></a></th>
-                    -->
+                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="desc" href="#sort"> <?php echo $columns[$i]; ?> </a></th>
 <?php
                 }
 ?>
