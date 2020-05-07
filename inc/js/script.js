@@ -76,4 +76,25 @@ $(document).ready(function(){
         }
         return false;
     });
+    
+    $("th .column_sort").click(function()
+    {
+        var nam = $("th .column_sort").attr('id');
+        /*
+        // AJAX Code To Submit Form.
+        $.ajax
+        ({
+            type: "POST",
+            url: "ajaxsubmit.php",
+            data: dataString,
+            cache: false,
+            success: function(result)
+            {
+                alert(result);
+            }
+        });
+        */
+        alert("Clicked "+nam);
+        return false;
+    });
 });
