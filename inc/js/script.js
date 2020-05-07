@@ -21,12 +21,12 @@ $(document).ready(function(){
         }
     });
 
-    $("#sort-button").click(function()
+    $("#filter-button").click(function()
     {
         var value = $("#filter-type").val();
-        if(value == "Type")
+        if(value == "OMWx5")
         {
-            alert("Type has been selected");
+            alert("OMWx5 has been selected");
         }
         else
         {
@@ -44,7 +44,7 @@ $(document).ready(function(){
                 }
             });
             */
-            alert("Type not selected");
+            alert("OMWx5 not selected");
         }
         return false;
     });
