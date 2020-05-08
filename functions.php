@@ -26,6 +26,11 @@
         );
     }
     
+    /**
+     * Testing function
+     * 
+     * Check if file or path exists, and echo result
+     */
     function path_exists($fpath)
     {
         if (file_exists("$fpath"))
@@ -36,6 +41,7 @@
         {
             echo "File/path not found:<br>( $fpath )";
         }
+        return false;
     }
     /**
      * ========== ^ Enqueue section ^ ==========
@@ -44,9 +50,6 @@
     /**
      * ========== v Database section v ==========
      */
-    $sql = '';
-    $non = '<br>Database not found<br>';
-    $err = '<br>mysqli error<br>';
     
     /**
      * Filter table items based on inputs
@@ -64,30 +67,28 @@
      */
     function db_display()
     {
-    	global $sql, $non, $err;
-    	
+        $non = '<br>Database not found<br>';
+        $err = '<br>mysqli error<br>';
+        
     	/**
     	 * Get table headers/fields and store in array
     	 */
-    	$sql = 
+    	$sql_h = 
     	"
     	    SELECT  COLUMN_NAME
     	    FROM    INFORMATION_SCHEMA.COLUMNS
     	    WHERE   TABLE_NAME = N'log_view';
     	";
     	
-    	/**
-    	 * Connect to db, get column headers, and store in array
-    	 */
+    	//Connect to db, get column headers, and store in array
     	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
-    	$res = mysqli_query($conn, $sql);
+    	$res = mysqli_query($conn, $sql_h);
     	mysqli_close($conn);
     	$chk = mysqli_num_rows($res);
     	
-    	
     	if(!($chk > 0))
     	{
-    	    die($non."using ".$sql);
+    	    die($non."using ".$sql_h);
     	}
     	
 	    $columns = [];
@@ -100,23 +101,29 @@
     	/**
     	 * Determine which column to sort by
     	 */
-    	$sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
+    	if (!$sort_column)
+    	{
+    	    $sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
+    	}
     	
     	/**
     	 * Determine column sort order
     	 */
-    	$sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+    	if (!$sort_order)
+    	{
+    	    $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
+    	}
     	
     	/**
     	 * Retrieve & display headers & rows in formatted HTML table
     	 */
-    	$sql =
-    	"
-    	    SELECT      *
-    	    FROM        log_view
-    	    ORDER BY    ".$sort_column." ".$sort_order.";
-    	";
-    	
+        $sql =
+        "
+            SELECT      *
+            FROM        log_view
+            ORDER BY    ".$sort_column." ".$sort_order.";
+        ";
+    	 
     	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	$res = mysqli_query($conn, $sql);
     	mysqli_close($conn);
