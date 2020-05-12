@@ -77,7 +77,7 @@ $(document).ready(function(){
         return false;
     });
     
-    $("th .column_sort").click(function()
+    $(document).on('click','th .column_sort',function()
     {
         var column_name = $(this).attr("id");
         var order = $(this).data("order");
@@ -98,7 +98,7 @@ $(document).ready(function(){
         $.ajax
         ({  
             url:"/wp-content/themes/astra-child/inc/auth/sabian_eg_workout_sort.php",  
-            method:"POST",  
+            method:"GET",  
             data:{column_name:column_name, order:order},  
             success:function(data)  
             {  
@@ -106,7 +106,6 @@ $(document).ready(function(){
                 $('#'+column_name+'').append(arrow);  
             }  
         })
-        alert(column_name+" "+order);
         return false;
     });
 });
