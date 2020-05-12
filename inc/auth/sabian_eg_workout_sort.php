@@ -13,7 +13,7 @@
 	if (getcwd() != '/home2/sabian/public_html')
 	{
         chdir('/home2/sabian/public_html');
-	}
+	}//this was such an annoying problem to find
 	
 	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
 	$res = mysqli_query($conn, $sql_h);
@@ -36,7 +36,8 @@
      * Sort+order table rows, then display
      */
     $ouput='';
-    $order=$_GET["order"];
+	$colName    = $_GET['column_name'];
+    $order      = $_GET["order"];
     
     //Cycle order
     if ($order=='asc')
@@ -55,7 +56,7 @@
     '
         SELECT      *
         FROM        log_view
-        ORDER BY    '.$_GET['column_name'].' '.$_GET['order'].'
+        ORDER BY    '.$colName.' '.$order.'
     ';
 	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     $res = mysqli_query($conn,$sql_r);
@@ -74,7 +75,20 @@
                 for($i=0;$i<count($columns);$i++)
                 {
 ?>
-                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="<?php echo $order; ?>" href="?table-column=<?php echo $columns[$i]; ?>&order=<?php echo $order; ?>"> <?php echo $columns[$i]; ?> </a></th>
+                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="<?php echo $order; ?>" href="?table-column=<?php echo $columns[$i]; ?>&order=<?php echo $order; ?>"><?php
+                                echo $columns[$i];
+                                if (!strcasecmp($columns[$i], $colName))
+                                {
+                                    if (!strcasecmp($order,'DESC'))
+                                    {
+                                        echo ' <i class="fas fa-chevron-down"></i>';
+                                    }//if DESC
+                                    elseif (!strcasecmp($order,'ASC'))
+                                    {
+                                        echo ' <i class="fas fa-chevron-up"></i>';
+                                    }
+                                }//if selected column
+                            ?></a></th>
 <?php
                 }
 ?>
