@@ -10,7 +10,11 @@
 	";
     	
 	//Connect to db, get column headers, and store in array
-    chdir('/home2/sabian/public_html');
+	if (getcwd() != '/home2/sabian/public_html')
+	{
+        chdir('/home2/sabian/public_html');
+	}
+	
 	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
 	$res = mysqli_query($conn, $sql_h);
 	mysqli_close($conn);
@@ -32,7 +36,7 @@
      * Sort+order table rows, then display
      */
     $ouput='';
-    $order=$_POST["order"];
+    $order=$_GET["order"];
     
     //Cycle order
     if ($order=='asc')
@@ -51,9 +55,8 @@
     '
         SELECT      *
         FROM        log_view
-        ORDER BY    '.$_POST["$column_name"].' '.$_POST["$order"].'
+        ORDER BY    '.$_GET['column_name'].' '.$_GET['order'].'
     ';
-    echo "<br>".$sql_r."<br>";
 	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     $res = mysqli_query($conn,$sql_r);
     mysqli_close($conn);
@@ -71,7 +74,7 @@
                 for($i=0;$i<count($columns);$i++)
                 {
 ?>
-                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="<?php echo $order ?>" href="#sort"> <?php echo $columns[$i]; ?> </a></th>
+                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="<?php echo $order; ?>" href="?table-column=<?php echo $columns[$i]; ?>&order=<?php echo $order; ?>"> <?php echo $columns[$i]; ?> </a></th>
 <?php
                 }
 ?>
