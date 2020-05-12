@@ -135,7 +135,7 @@
     	}
     	
     	$up_or_down = str_replace(array('ASC','DESC'), array('up','down'), $sort_order); 
-	    $asc_or_desc = $sort_order == 'ASC' ? 'desc' : 'asc';
+	    $asc_or_desc = $sort_order == 'ASC' ? 'DESC' : 'ASC';
 	    $add_class = '_highlight';
 ?>
         <!-- todo: display sortable db table headings -->
@@ -145,7 +145,7 @@
                 for($i=0;$i<count($columns);$i++)
                 {
 ?>
-                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="desc" href="?column_name=<?php echo $columns[$i]; ?>&sort=<?php echo $sort_order; ?>"><?php echo $columns[$i]; ?></a></th>
+                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="desc" href="?column_name=<?php echo $columns[$i]; ?>&sort=<?php echo $sort_order; ?>"><?php echo $columns[$i].' <i class="fas fa-chevron-down"></i>'; ?></a></th>
 <?php
                 }
 ?>
