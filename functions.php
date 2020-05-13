@@ -52,18 +52,79 @@
      */
     
     /**
-     * Filter table items based on inputs
+     * Get columns from table and store in array
      */
-    function db_filter()
+    function db_get_cols()
     {
+        $non = '<br>Database not found<br>';
+        $err = '<br>mysqli error<br>';
         
-        return 0;
+    	/**
+    	 * Get table headers/fields and store in array
+    	 */
+    	$sql_h = 
+    	"
+    	    SELECT  COLUMN_NAME
+    	    FROM    INFORMATION_SCHEMA.COLUMNS
+    	    WHERE   TABLE_NAME = N'log_view';
+    	";
+    	
+    	/**
+    	 *  Connect to db and get column headers
+    	 */
+    	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
+    	$res = mysqli_query($conn, $sql_h);
+    	mysqli_close($conn);
+    	$chk = mysqli_num_rows($res);
+    	
+    	if(!($chk > 0))
+    	{
+    	    error_log($non."using ".$sql_h);
+    	    mysqli_free_result($res);
+    	    exit();
+    	}
+    	
+    	/**
+    	 *  Store column headers in array and return result
+    	 */
+	    $columns = [];
+	    while ($row = mysqli_fetch_assoc($res))
+	    {
+	        $columns[]=$row['COLUMN_NAME'];
+	    }
+    	mysqli_free_result($res);
+    	return $columns;
     }
     
     /**
-     * Display table from db
-     * 
-     * TODO: dynamically display table column headers and rows
+     * Get rows from selected table column and store in array
+     */
+    function db_get_rows_distinct($col)
+    {
+        /**
+         *  $col must have a non-empty string value
+         */
+        if (!$col)
+        {
+            error_log("Cannot retrieve rows. col variable is empty",0);
+            exit();
+        }
+        elseif (!is_string($col))
+        {
+            error_log("Cannot retrieve rows. col variable is invalid type. Must be [string]. col is [".gettype($col)/"]",0);
+            exit();
+        }
+        
+        /**
+         *  Search through $col rows
+         */
+         include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
+         
+         $rows[];
+    }
+    
+    /**
+     *  Display table from db
      */
     function db_display()
     {
@@ -80,7 +141,9 @@
     	    WHERE   TABLE_NAME = N'log_view';
     	";
     	
-    	//Connect to db, get column headers, and store in array
+    	/**
+    	 *  Connect to db and get column headers
+    	 */
     	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	$res = mysqli_query($conn, $sql_h);
     	mysqli_close($conn);
@@ -88,9 +151,14 @@
     	
     	if(!($chk > 0))
     	{
-    	    die($non."using ".$sql_h);
+    	    error_log($non."using ".$sql_h);
+    	    mysqli_free_result($res);
+    	    exit();
     	}
     	
+    	/**
+    	 *  Store column headers in array and return result
+    	 */
 	    $columns = [];
 	    while ($row = mysqli_fetch_assoc($res))
 	    {
@@ -99,31 +167,49 @@
     	mysqli_free_result($res);
     	
     	/**
-    	 * Determine which column to sort by
+    	 *  Determine which column to sort by
     	 */
-    	if (!$sort_column)
-    	{
-    	    $sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
-    	}
+	    $sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
     	
     	/**
-    	 * Determine column sort order
+    	 *  Determine column sort order
     	 */
-    	if (!$sort_order)
-    	{
-    	    $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
-    	}
+	    $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
     	
     	/**
-    	 * Retrieve & display headers & rows in formatted HTML table
+    	 *  Retrieve & display headers & rows in formatted HTML table
     	 */
         $sql =
         "
             SELECT      *
             FROM        log_view
-            ORDER BY    ".$sort_column." ".$sort_order.";
-        ";
-    	 
+            ORDER BY    ".$sort_column." ".$sort_order;
+        
+        /**
+         *  If filters are selected, include them in $sql
+         *      otherwise terminate $sql.
+         * 
+         *  TODO: dynamically get column titles and rows in each column
+         *          and filter by each
+         */
+        /*
+        $filter_by_column = isset($_GET['filter_column']);
+        
+        if (!$filter_by_column[][])
+        {
+            $sql.=";";
+        }
+    	else
+    	{
+    	    for ($col=0;$col<count($filter_by_column);$col++)
+    	    {
+    	        for ($row=0;$row<count($filter_by_column[$col]);$row++)
+    	        {
+    	            
+    	        }//for every row in column
+    	    }//for every column in table
+    	}//if filters are used
+    	*/
     	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
     	$res = mysqli_query($conn, $sql);
     	mysqli_close($conn);
