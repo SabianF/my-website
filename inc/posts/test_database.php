@@ -49,6 +49,9 @@
                 </p>
             </div><!-- #const -->
             <div class="columns-2" style="margin-bottom:100px;">
+                <div class="center" id="table-display" style="height:500px    ;overflow:scroll;padding-left:10px;padding-right:10px;">
+                    <?php db_display(); ?>
+                </div><!-- #table-display -->
                 <div id="table-forms">
                     <h2 class="center">Testing Area</h2>
                     <p class="center">Currently testing forms to search within database.</p>
@@ -62,39 +65,34 @@
                     </div><!-- #todos -->
                     <!-- TODO: Table Search/Entry Forms -->
                     <div class="columns-2">
-                        <div style="padding: 5%;">
-                            <h3>Test Form Filter</h3>
-                            <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php" method="POST">
-                                <label id="form-label" for ="date">Date:</label><br>
-                                <input type="date" id="filter-date" name="filter-date"><br>
-                                <label id="form-label" for ="filter-type">Type:</label><br>
-                                <select id="filter-type" name="filter-type">
-                                    <option value="OMW">    OMW     </option>
-                                    <option value="OMWx5">  OMWx5   </option>
-                                    <option value="EKCx10"> EKCx10  </option>
-                                    <option value="WPHx10"> WPHx10  </option>
-                                </select><br>
-                                <button id="filter-button" type="button" name="submit">Filter</button>
+                        <div class="center" id="filter-forms">
+                            <form id="filter-form">
+                                <p>
+                                    <label>Include only: </label>
+                                    <select id="filter_columns">
+                                        <?php/*
+                                            foreach (db_get_cols() as $col)
+                                            {
+                                                echo '<option id="'.$col.'">'.$col.'</option>';
+                                            }//foreach column in table
+                                        ?>
+                                    </select>
+                                    <?php echo " "; ?>
+                                    <select id="filter_rows_<?php db_get_rows_distinct($col); ?>">
+                                        <?php
+                                            foreach (db_get_rows_distinct())
+                                                {
+                                                    
+                                                }*/
+                                        ?>
+                                    </select>
+                                    <?php echo " for " ?>
+                                    
+                                </p>
                             </form>
-                        </div>
-                        <div style="padding: 5%;">
-                            <h3>Test Form Sort</h3>
-                            <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php">
-                                <label id="form-label" for ="sort-type">Type:</label><br>
-                                <select id="sort-type" name="sort-type">
-                                    <option value="Date">  Date     </option>
-                                    <option value="Type">  Type     </option>
-                                    <option value="Count"> Count    </option>
-                                    <option value="Points">Points   </option>
-                                </select><br>
-                                <button id="sort-button" type="button" name="sort-button">Sort</button>
-                            </form>
-                        </div>
-                    </div><!-- #column -->
-                </div>
-                <div class="center" id="table-display" style="height:500px    ;overflow:scroll;padding-left:10px;padding-right:10px;">
-                    <?php db_display(); ?>
-                </div><!-- #table-display -->
+                        </div><!-- #filter-form -->
+                    </div><!-- .columns-2 -->
+                </div><!-- #table-forms -->
         	</div><!-- #columns-2 -->
 <?php
             the_content();
