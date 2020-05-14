@@ -1,4 +1,4 @@
-<?php
+T<?php
     /**
      * STATUS = Under Construction
      *
@@ -19,6 +19,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    
+    <!-- Local Resources -->
     <link
         rel="stylesheet"
         type="text/css"
@@ -28,11 +30,19 @@
 	    href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	    crossorigin="anonymous">
+    
+    <!-- jQuery -->
     <script
 	  src="https://code.jquery.com/jquery-3.5.1.min.js"
 	  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 	  crossorigin="anonymous"></script>
     <script src="/wp-content/themes/astra-child/inc/js/script.js"></script>
+
+	<!-- DataTables -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/fh-3.1.7/r-2.2.4/sc-2.0.2/sp-1.1.0/sl-1.3.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/fh-3.1.7/r-2.2.4/sc-2.0.2/sp-1.1.0/sl-1.3.1/datatables.min.js"></script>
 </head>
 <body>
 	<div id="primary" <?php astra_primary_class(); ?>>
@@ -60,39 +70,8 @@
                             <li>Visualizations</li>
                         </ul>
                     </div><!-- #todos -->
-                    <!-- TODO: Table Search/Entry Forms -->
-                    <div class="columns-2">
-                        <div style="padding: 5%;">
-                            <h3>Test Form Filter</h3>
-                            <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php" method="POST">
-                                <label id="form-label" for ="date">Date:</label><br>
-                                <input type="date" id="filter-date" name="filter-date"><br>
-                                <label id="form-label" for ="filter-type">Type:</label><br>
-                                <select id="filter-type" name="filter-type">
-                                    <option value="OMW">    OMW     </option>
-                                    <option value="OMWx5">  OMWx5   </option>
-                                    <option value="EKCx10"> EKCx10  </option>
-                                    <option value="WPHx10"> WPHx10  </option>
-                                </select><br>
-                                <button id="filter-button" type="button" name="submit">Filter</button>
-                            </form>
-                        </div>
-                        <div style="padding: 5%;">
-                            <h3>Test Form Sort</h3>
-                            <form action="wp-content/themes/astra-child/inc/auth/sabian_eg_workout_form.php">
-                                <label id="form-label" for ="sort-type">Type:</label><br>
-                                <select id="sort-type" name="sort-type">
-                                    <option value="Date">  Date     </option>
-                                    <option value="Type">  Type     </option>
-                                    <option value="Count"> Count    </option>
-                                    <option value="Points">Points   </option>
-                                </select><br>
-                                <button id="sort-button" type="button" name="sort-button">Sort</button>
-                            </form>
-                        </div>
-                    </div><!-- #column -->
                 </div>
-                <div class="center" id="table-display" style="height:500px    ;overflow:scroll;padding-left:10px;padding-right:10px;">
+                <div class="center" id="table-display" style="padding-left:10px;padding-right:10px;">
                     <?php db_display(); ?>
                 </div><!-- #table-display -->
         	</div><!-- #columns-2 -->
