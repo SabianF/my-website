@@ -139,37 +139,41 @@
 	    $add_class = '_highlight';
 ?>
         <!-- todo: display sortable db table headings -->
-        <table class="t01" border="0" cellspacing="2" cellpadding="2"> 
-            <tr> 
+        <table id="workout_table"> 
+            <thead>
+                <tr>
 <?php
-                for($i=0;$i<count($columns);$i++)
-                {
+                    for($i=0;$i<count($columns);$i++)
+                    {
+?>  
+                        <th><?php echo $columns[$i]; ?></th>
+<?php   
+                    }
 ?>
-                    <th><a class ="column_sort" id="<?php echo $columns[$i]; ?>" data-order="desc" href="?column_name=<?php echo $columns[$i]; ?>&sort=<?php echo $sort_order; ?>"><?php echo $columns[$i].' <i class="fas fa-chevron-down"></i>'; ?></a></th>
-<?php
-                }
-?>
-            </tr>
+                </tr>
+            </thead>
+            <tbody>
 <?php       	    
-            //display db table data
-            while ($row = mysqli_fetch_assoc($res))
-            {
-                $field1name = $row["Date"   ];
-                $field2name = $row["Workout"];
-                $field3name = $row["Count"  ];
-                $field4name = $row["Points" ];
-
-                echo
-                '
-                    <tr> 
-                        <td>'.$field1name.'</td>
-                        <td>'.$field2name.'</td>
-                        <td>'.$field3name.'</td>
-                        <td>'.$field4name.'</td>
-                    </tr>
-                ';
-            }
+                //display db table data
+                while ($row = mysqli_fetch_assoc($res))
+                {
+                    $field1name = $row["Date"   ];
+                    $field2name = $row["Workout"];
+                    $field3name = $row["Count"  ];
+                    $field4name = $row["Points" ];
+    
+                    echo
+                    '
+                        <tr> 
+                            <td>'.$field1name.'</td>
+                            <td>'.$field2name.'</td>
+                            <td>'.$field3name.'</td>
+                            <td>'.$field4name.'</td>
+                        </tr>
+                    ';
+                }
 ?>  	        
+            </tbody>
         </table><!-- t01 -->
 <?php	   
 	    mysqli_free_result($res);
