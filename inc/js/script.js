@@ -1,4 +1,10 @@
 $(document).ready(function(){
+    
+    $('#workout_table').DataTable({
+        "scrollY": "500px",
+        "scrollCollapse": true,
+        "paging": false
+    });
 
     $('select[name="sort-type"]').change(function(){
         var sel = $(this).val();
@@ -76,7 +82,7 @@ $(document).ready(function(){
         }
         return false;
     });
-    
+    /*
     $(document).on('click','th .column_sort',function()
     {
         var column_name = $(this).attr("id");
@@ -108,4 +114,5 @@ $(document).ready(function(){
         })
         return false;
     });
+    */
 });
