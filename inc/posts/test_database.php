@@ -19,8 +19,9 @@ T<?php
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Local Resources -->
+    <!-- Local -->
     <link
         rel="stylesheet"
         type="text/css"
@@ -43,38 +44,48 @@ T<?php
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/fh-3.1.7/r-2.2.4/sc-2.0.2/sp-1.1.0/sl-1.3.1/datatables.min.js"></script>
+    
+    <!-- Leaflet -->
+    <link rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
 </head>
 <body>
 	<div id="primary" <?php astra_primary_class(); ?>>
 <?php
         astra_primary_content_top();
 ?>
-        <h1 class="center" style="padding-top:50px;"><?php get_the_title(get_post    (get_the_ID())) ?></h1>
+        <h1 class="center" style="padding-top:50px;"><?php get_the_title(get_post(get_the_ID())) ?></h1>
         
-        <div id="primary" class="content-area primary" >
+        <div class="content-area primary" id="primary">
             <div id="const" style="margin-left:auto;margin-right:auto;margin-bottom:50px;">
                 <h2 class="title-header" style="text-shadow: 2px 2px 10px #CCC;text-align:center;">Under Construction!</h2>
                 <p class="center" style="padding:10px;">
-                    We're still working on this functionality but don't worry, we'll have the rest of it ready, soon! Check back later!
+                    We're still working on this functionality. Try it out! We'll have the rest of it ready, soon, so make sure to check back later!
+                </p>
+                <p>
+                    Coming soon:
+                    <ul>
+                        <li>Search and sort by date, type, count points</li>
+                        <li>Update & add new entries</li>
+                        <li>Visualizations</li>
+                    </ul>
                 </p>
             </div><!-- #const -->
-            <div class="columns-2" style="margin-bottom:100px;">
-                <div id="table-forms">
-                    <h2 class="center">Testing Area</h2>
-                    <p class="center">Currently testing forms to search within database.</p>
-                    <div id="todos">
-                        Coming soon:
-                        <ul>
-                            <li>Search and sort by date, type, count points</li>
-                            <li>Update & add new entries</li>
-                            <li>Visualizations</li>
-                        </ul>
-                    </div><!-- #todos -->
-                </div>
-                <div class="center" id="table-display" style="padding-left:10px;padding-right:10px;">
+            <div class="flex-container" id="table-section">
+                <div class="flex-child" id="table-display">
+                    <h2 class="center">Example Database</h2>
                     <?php db_display(); ?>
                 </div><!-- #table-display -->
-        	</div><!-- #columns-2 -->
+                <div class="flex-child" id="table-forms">
+                    <h2 class="center">Testing Area</h2>
+                    <p class="center">Currently building functionality to change, add new, and delete data.</p>
+                </div><!-- #table-forms -->
+        	</div><!-- #table-section -->
 <?php
             the_content();
 	        astra_primary_content_bottom();
