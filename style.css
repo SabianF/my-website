@@ -18,6 +18,10 @@ body
 {
     background-color:#FFF;
 }
+h1, h2
+{
+    padding:20px;
+}
 .center
 {
     text-align: center;
@@ -42,6 +46,15 @@ body
 /**
  * Floats & Columns
  */
+.flex-container {
+    display:    flex;
+    flex-wrap:  wrap;
+    padding:    20px;
+}
+.flex-child {
+    flex:   1;
+    padding:20px;
+}
 .columns-2 {
     -webkit-column-count:   2;
     -moz-column-count:      2;
@@ -51,6 +64,7 @@ body
     -moz-column-width:      200px;
     -ms-column-width:       200px;
     column-width:           200px;
+    height:                 600px;
 }
 .columns-3 {
     -webkit-column-count:   3;
@@ -71,4 +85,20 @@ body
     -moz-column-width:      300px;
     -ms-column-width:       300px;
     column-width:           300px;
+}
+
+/**
+ * Mobile Phones
+ */
+@media only screen and (max-width: 640px)
+{
+    /**
+     * Floats & Columns
+     */
+    .flex-container {
+        padding:0px;
+    }
+    .flex-child {
+        padding:0px;
+    }
 }
