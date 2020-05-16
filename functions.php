@@ -51,14 +51,48 @@
      * ========== v Database section v ==========
      */
     
+    $non = '<br>Database not found<br>';
+    $err = '<br>mysqli error<br>';
+    
     /**
      * Filter table items based on inputs
+     * 
+     * @return array
      */
-    function db_filter()
+    function db_getHeaders()
     {
+        global $non, $err;
+        $hdrs = [];
         
-        return 0;
-    }
+    	//Get table headers/fields and store in array
+    	$sql_h = 
+    	"
+    	    SELECT  COLUMN_NAME
+    	    FROM    INFORMATION_SCHEMA.COLUMNS
+    	    WHERE   TABLE_NAME = N'log_view';
+    	";
+    	
+    	//Connect to db, get column headers, and store in array
+    	include 'wp-content/themes/astra-child/inc/auth/sabian_eg_workout.php';
+    	$res = mysqli_query($conn, $sql_h);
+    	mysqli_close($conn);
+    	$chk = mysqli_num_rows($res);
+    	
+    	//Check for query errors
+    	if(!($chk > 0))
+    	{
+    	    die($non."using ".$sql_h);
+    	}
+    	
+    	//Store query result rows in array
+	    while ($row = mysqli_fetch_assoc($res))
+	    {
+	        $hdrs[]=$row['COLUMN_NAME'];
+	    }
+    	mysqli_free_result($res);
+        
+        return $hdrs;
+    }//db_getHeaders
     
     /**
      * Display table from db
@@ -67,12 +101,9 @@
      */
     function db_display()
     {
-        $non = '<br>Database not found<br>';
-        $err = '<br>mysqli error<br>';
+        global $non, $err;
         
-    	/**
-    	 * Get table headers/fields and store in array
-    	 */
+    	//Get table headers/fields and store in array
     	$sql_h = 
     	"
     	    SELECT  COLUMN_NAME
@@ -98,25 +129,19 @@
 	    }
     	mysqli_free_result($res);
     	
-    	/**
-    	 * Determine which column to sort by
-    	 */
+    	//Determine which column to sort by
     	if (!$sort_column)
     	{
     	    $sort_column = isset($_GET['column']) && in_array($_GET['column'], $columns) ? $_GET['column'] : $columns[0];
     	}
     	
-    	/**
-    	 * Determine column sort order
-    	 */
+    	//Determine column sort order
     	if (!$sort_order)
     	{
     	    $sort_order = isset($_GET['order']) && strtolower($_GET['order']) == 'desc' ? 'DESC' : 'ASC';
     	}
     	
-    	/**
-    	 * Retrieve & display headers & rows in formatted HTML table
-    	 */
+    	//Retrieve & display headers & rows in formatted HTML table
         $sql =
         "
             SELECT      *
@@ -138,23 +163,20 @@
 	    $asc_or_desc = $sort_order == 'ASC' ? 'DESC' : 'ASC';
 	    $add_class = '_highlight';
 ?>
-        <!-- todo: display sortable db table headings -->
         <table id="workout_table"> 
             <thead>
                 <tr>
 <?php
                     for($i=0;$i<count($columns);$i++)
                     {
-?>  
-                        <th><?php echo $columns[$i]; ?></th>
-<?php   
+                        echo '<th>'.$columns[$i].'</th>';
                     }
 ?>
                 </tr>
             </thead>
             <tbody>
 <?php       	    
-                //display db table data
+                //Display db table data
                 while ($row = mysqli_fetch_assoc($res))
                 {
                     $field1name = $row["Date"   ];
@@ -174,8 +196,8 @@
                 }
 ?>  	        
             </tbody>
-        </table><!-- t01 -->
-<?php	   
+        </table><!-- #workout_table -->
+<?php
 	    mysqli_free_result($res);
         mysqli_close($conn);
     }//db_display
