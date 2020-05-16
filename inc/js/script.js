@@ -1,118 +1,25 @@
 $(document).ready(function(){
     
-    $('#workout_table').DataTable({
+    //Initialize DataTable for workout_table
+    var t = $('#workout_table').DataTable({
         "scrollY": "500px",
         "scrollCollapse": true,
         "paging": false
-    });
-
-    $('select[name="sort-type"]').change(function(){
-        var sel = $(this).val();
-        switch (sel)
-        {
-            case "Date":
-                alert("Date selected");
-                break;
-            case "Type":
-                alert("Type selected");
-                break;
-            case "Count":
-                alert("Count selected");
-                break;
-            case "Points":
-                alert("Points selected");
-                break;
-            default:
-                break;
-        }
-    });
-
-    $("#filter-button").click(function()
-    {
-        var value = $("#filter-type").val();
-        if(value == "OMWx5")
-        {
-            alert("OMWx5 has been selected");
-        }
-        else
-        {
-            /*
-            // AJAX Code To Submit Form.
-            $.ajax
-            ({
-                type: "POST",
-                url: "ajaxsubmit.php",
-                data: dataString,
-                cache: false,
-                success: function(result)
-                {
-                    alert(result);
-                }
-            });
-            */
-            alert("OMWx5 not selected");
-        }
-        return false;
-    });
+    });//$('#workout_table').DataTable
     
-    $("#sort-button").click(function()
-    {
-        var value = $("#sort-type").val();
-        if(value == "Type")
-        {
-            alert("Type has been selected");
-        }
-        else
-        {
-            /*
-            // AJAX Code To Submit Form.
-            $.ajax
-            ({
-                type: "POST",
-                url: "ajaxsubmit.php",
-                data: dataString,
-                cache: false,
-                success: function(result)
-                {
-                    alert(result);
-                }
-            });
-            */
-            alert("Type not selected");
-        }
-        return false;
-    });
-    /*
-    $(document).on('click','th .column_sort',function()
-    {
-        var column_name = $(this).attr("id");
-        var order = $(this).data("order");
-        var arrow = '';
+    //Allow adding of new rows to #workout_table
+    $('#addData_button').on('click',function(){
+        alert("Data submitted!");
         
-        //glyphicon glyphicon-arrow-up
-        //glyphicon glyphicon-arrow-down
-        if(order == 'desc')  
-        {  
-            arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-do></span>';  
-        }  
-        else  
-        {  
-            arrow = '&nbsp;<span class="glyphicon glyphicon-arrow-up"></span>';  
-        }
+        t.row.add([
+            $('#date_input'     ).val()
+            ,$('#workout_input' ).val()
+            ,$('#count_input'   ).val()
+            ,$('#points_input'  ).val()
+        ]).draw(false);
         
-        //TODO: column_name and order have proper value, but AJAX not passing value to url
-        $.ajax
-        ({  
-            url:"/wp-content/themes/astra-child/inc/auth/sabian_eg_workout_sort.php",  
-            method:"GET",  
-            data:{column_name:column_name, order:order},  
-            success:function(data)  
-            {  
-                $('#table-display').html(data);  
-                $('#'+column_name+'').append(arrow);  
-            }  
-        })
-        return false;
-    });
-    */
-});
+        $('#addData').trigger("reset");
+        
+    });//$('#addData_button').on('click',function()
+    
+});//$(document).ready(function()
