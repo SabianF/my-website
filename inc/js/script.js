@@ -20,8 +20,10 @@ $(document).ready(function(){
         $(this).css('background-color','');
     });
     $('#workout_table tbody tr td').on('click',function(){
-        alert('Clicked: '+$(this).text()+". Editing functionality coming soon...");
-        //t.row(this).edit();
+        var td  = ($(this).text() ? $(this).text() : $(this).val() );
+        var cw  = Math.floor(($(this).width()-25) / 10);
+        var txt = '<input type="text" value="'+td+'" size="'+cw+'">';
+        $(this).html("").append(txt);
     });
     /*
     function myCallbackFunction (updatedCell, updatedRow, oldValue) {
