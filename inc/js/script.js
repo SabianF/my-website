@@ -7,6 +7,7 @@ $(document).ready(function(){
         "paging": false
     });//$('#workout_table').DataTable
     
+    //Table highlighting on mouse hover
     $('#workout_table tbody tr').on('mouseenter',function(){
         $(this).css('background-color','#EEE');
     });
@@ -19,24 +20,27 @@ $(document).ready(function(){
     $('#workout_table tbody tr td').on('mouseleave',function(){
         $(this).css('background-color','');
     });
+    
+    //Edit cell on click
     $('#workout_table tbody tr td').on('click',function(){
-        var td  = ($(this).text() ? $(this).text() : $(this).val() );
-        var cw  = Math.floor(($(this).width()-25) / 10);
-        var txt = '<input type="text" value="'+td+'" size="'+cw+'">';
-        $(this).html("").append(txt);
+        if (!($(this).html().indexOf('<input type="text"') >= 0))
+        {
+            var td  = ($(this).html() ? $(this).text() : $(this).val() );
+            var cw  = Math.floor(($(this).width()-30) / 10);
+            var txt = '<input type="text" id="cell-edit" value="'+td+'" size="'+cw+'">';
+            
+            $(this).html("").append(txt);
+            $('#cell-edit').focus().select();
+        }//if not already editing
     });
-    /*
-    function myCallbackFunction (updatedCell, updatedRow, oldValue) {
-        console.log("The new value for the cell is: " + updatedCell.data());
-        console.log("The values for each cell in that row are: " + updatedRow.data());
-        alert("Done!!!");
-    }
+    
+    //Save cell edit value on defocus
+    $(document).on('blur','#cell-edit',function(){
+        var txt = $(this).val();
+        $(this).parent().html("").append(txt);
+    });
 
-    t.MakeCellsEditable({
-        "onUpdate": myCallbackFunction
-    });
-    */
-    //Allow adding of new rows to #workout_table
+    //Add new rows
     $('#addData_button').on('click',function(){
         var di = $('#date_input'    ).val();
         var wi = $('#workout_input' ).val();
