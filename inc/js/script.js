@@ -21,8 +21,8 @@ $(document).ready(function(){
         $(this).css('background-color','');
     });
     
-    //Edit cell on click
-    $('#workout_table tbody tr td').on('click',function(){
+    //Edit cell on double-click
+    $('#workout_table tbody tr td').on('dblclick',function(){
         if (!($(this).html().indexOf('<input type="text"') >= 0))
         {
             var td  = ($(this).html() ? $(this).text() : $(this).val() );
@@ -58,11 +58,31 @@ $(document).ready(function(){
 
     //Add new rows
     $('#addData_button').on('click',function(){
+        
+        //Get all values from input fields
         var di = $('#date_input'    ).val();
         var wi = $('#workout_input' ).val();
         var ci = $('#count_input'   ).val();
         var pi = $('#points_input'  ).val();
         
+        //Error if any fields are empty
+        if (!di || !wi || !ci || !pi)
+        {
+            //Remove failure text if displayed
+            if ($('#addData-success').length)
+            {
+                $('#addData-success').remove();
+            }
+            
+            //Add failure text if not already displayed
+            if (!$('#addData-fail').length)
+            {
+                $('#addData_button').after('<p id="addData-fail">Please fill out all fields!</p>');
+            }
+            return;
+        }
+        
+        //Add new row to table using input data
         t.row.add([
              di
             ,wi
@@ -70,8 +90,20 @@ $(document).ready(function(){
             ,pi
         ]).draw(false);
         
-        alert('Successfully added '+(di?di:'')+(di&&wi?', '+wi:(wi?wi:''))+(wi&&ci?', '+ci:(ci?ci:''))+(ci&&pi?', '+pi:(pi?pi:'')));
+        //Clear all form fields after submit
         $('#addData').trigger("reset");
+        
+        //Remove failure text if displayed
+        if ($('#addData-fail').length)
+        {
+            $('#addData-fail').remove();
+        }
+        
+        //Display success text if not already displayed
+        if (!$('#addData-success').length)
+        {
+            $('#addData_button').after('<p id="addData-success">New data added successfully!</p>');
+        }
         
     });//$('#addData_button').on('click',function()
     
