@@ -39,6 +39,22 @@ $(document).ready(function(){
         var txt = $(this).val();
         $(this).parent().html("").append(txt);
     });
+    
+    //TODO: not working
+    //Save cell edit value when enter key pressed
+    $(document).on('keyup','#cell-edit',function(k){
+        
+        //break when keypressed != 'enter'
+        var key = k.which;
+        if(key!=13)
+        {
+            return;
+        }
+        
+        //when keypressed is 'enter'
+        var txt = $(this).val();
+        $(this).parent().html("").append(txt);
+    });
 
     //Add new rows
     $('#addData_button').on('click',function(){
