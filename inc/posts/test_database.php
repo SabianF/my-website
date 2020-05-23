@@ -62,47 +62,51 @@
             <h1 class="center-stb title-image-txt"><?php echo get_the_title(get_post(get_the_ID())) ?></h1>
         </div>
         <div class="theme1" id="intro">
-            <h2>Under Construction!</h2>
+            <h2>Work In-Progress!</h2>
             <p>
-        We're still working on this functionality. Try it out! We'll have the rest of it ready, soon, so make sure to check back later!
+        We're currently developing this functionality. Try it out! We'll have the rest of it ready, soon, so make sure to check back later!
             </p>
             <p>
                 Coming soon:
                 <ul>
-                <li><i class="fas fa-check"></i> Search and sort by date, type, count points</li>
-                    <li>Update & add new entries</li>
+                <li><i class="fas fa-check" style="color:green;"></i> Search and sort by date, type, count points</li>
+                    <li><i class="fas fa-check" style="color:green;"></i> Update & add new entries</li>
                     <li>Visualizations</li>
                 </ul>
             </p>
         </div><!-- #intro -->
         <div class="flex-container theme1" id="table-section">
             <div class="flex-child" id="table-display">
-                <h2 class="center">Example Database</h2>
+                <h2 class="center">Example Data Table</h2><br>
+                <p class="center"><i>(Double-click to edit values)</i></p>
                 <?php db_display(); ?>
             </div><!-- #table-display -->
-            <div class="flex-child" id="table-forms">
-                <h2 class="center">Testing Area</h2>
-            <p class="center">Currently building functionality to change, add new, and delete data.</p><br>
-                <div class="center" id="table-form-fields">
-                    <h4 id="addRow">Add New Entry</h3><br>
-                    <form id="addData">
-                        <label id="lb_date">Date</label><br>
-                        <input type="date" id="date_input"><br>
-                        <br>
-                        <label id="lb_workout">Workout</label><br>
-                        <input type="text" id="workout_input"><br>
-                        <br>
-                        <label id="lb_count">Count</label><br>
-                        <input type="number" id="count_input"><br>
-                        <br>
-                        <label id="lb_points">Points</label><br>
-                        <input type="number" id="points_input"><br>
-                        <br>
-                        <button type="button" id="addData_button">Add Submission</button>
-                    </form>
-                </div><!-- #table-form-fields -->
-            </div><!-- #table-forms -->
+            <div class="flex-child center" id="table-form-fields">
+                <h2 id="addRow">Add New Entry</h3><br>
+                <p class="center"><i>(Make sure to fill out all fields)</i></p><br>
+                <form id="addData">
+                    <label id="lb_date">Date</label><br>
+                    <input type="date" id="date_input"><br>
+                    <br>
+                    <label id="lb_workout">Workout</label><br>
+                    <input type="text" id="workout_input"><br>
+                    <br>
+                    <label id="lb_count">Count</label><br>
+                    <input type="number" id="count_input"><br>
+                    <br>
+                    <label id="lb_points">Points</label><br>
+                    <input type="number" id="points_input"><br>
+                    <br>
+                    <button type="button" id="addData_button">Add Submission</button>
+                </form>
+            </div><!-- #table-form-fields -->
     	</div><!-- #table-section -->
+    	<div class="white-gradient-black"></div>
+    	<div class="theme2" id="viz-section">
+    	    <h2 class="center theme2">Data Visualizations</h2><br>
+    	    <p class="center theme2">Coming soon...</p>
+    	</div><!-- #viz-section --->
+    	<div class="black-gradient-white"></div>
 <?php
         the_content();
         astra_primary_content_bottom();
