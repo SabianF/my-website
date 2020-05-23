@@ -16,11 +16,23 @@
  */
 body
 {
-    background-color:#FFF;
+    background:#FFF;
 }
 h1, h2
 {
-    padding:20px;
+    padding-top:    20px;
+    padding-bottom: 20px;
+}
+.title-image
+{
+    background:         black;
+    background:         rgba(0,0,0,0.5) url('https://sabfino.com/wp-content/uploads/2020/03/charts.jpg');
+    background-size:    cover;
+}
+.title-image-txt
+{
+    color:          white;
+    text-shadow:    2px 2px 2px black;
 }
 .center
 {
@@ -28,19 +40,77 @@ h1, h2
 }
 .center-st
 {
-    text-align: center;
-    padding-top: 150px;
+    text-align:     center;
+    padding-top:    150px;
 }
 .center-sb
 {
-    text-align: center;
+    text-align:     center;
     padding-bottom: 150px;
 }
 .center-stb
 {
-    text-align: center;
-    padding-top: 150px;
-    padding-bottom:150px;
+    text-align:     center;
+    padding-top:    150px;
+    padding-bottom: 150px;
+}
+.shadow
+{
+    text-shadow: 2px 2px black;
+}
+#addData-fail
+{
+    padding-top:20px;
+    color: red;
+}
+#addData-success
+{
+    padding-top:20px;
+    color: green;
+}
+
+/* Accent colour 1 */
+div .theme1
+{
+    background: #FFF;
+    width:      100%;
+    padding:    20px;
+}
+
+/* Accent colour 2 */
+.theme2
+{
+    color: white;
+}
+h1 h2 h3 .theme2
+{
+    text-shadow: 5px 5px 5px black;
+}
+div .theme2
+{
+    background: black;
+    width:      100%;
+    padding:    20px;
+}
+
+div .white-gradient-black
+{
+    background:         #FFF;
+    background-image:   -webkit-linear-gradient(white,black);
+    background-image:   -moz-linear-gradient(white,black);
+    background-image:   -o-linear-gradient(white,black);
+    background-image:   linear-gradient(white,black);
+    min-height:         120px;
+}
+
+div .black-gradient-white
+{
+    background:         #000;
+    background-image:   -webkit-linear-gradient(black,white);
+    background-image:   -moz-linear-gradient(black,white);
+    background-image:   -o-linear-gradient(black,white);
+    background-image:   linear-gradient(black,white);
+    min-height:         120px;
 }
 
 /**
