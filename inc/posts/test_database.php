@@ -72,14 +72,14 @@
                 </ul>
             </p>
         </div><!-- #intro -->
-        <div class="flex-container theme1" id="table-section">
+        <div class="flex-container theme2" id="table-section">
             <div class="flex-child" id="table-display">
                 <h2 class="center">Example Data Table</h2><br>
                 <p class="center"><i>(Double-click to edit values)</i></p>
                 <?php db_display(); ?>
             </div><!-- #table-display -->
             <div class="flex-child center" id="table-form-fields">
-                <h2 id="addRow">Add New Entry</h3><br>
+                <h4 id="addRow">Add New Entry</h4><br>
                 <p class="center"><i>(Make sure to fill out all fields)</i></p><br>
                 <form id="addData">
                     <label id="lb_date">Date</label><br>
@@ -98,12 +98,10 @@
                 </form>
             </div><!-- #table-form-fields -->
     	</div><!-- #table-section -->
-    	<div class="white-gradient-black"></div>
-    	<div class="theme2" id="viz-section">
-    	    <h2 class="center theme2">Data Visualizations</h2><br>
-    	    <p class="center theme2">Coming soon...</p>
+    	<div class="theme1" id="viz-section">
+    	    <h2 class="center">Data Visualizations</h2><br>
+    	    <p class="center">Coming soon...</p>
     	</div><!-- #viz-section --->
-    	<div class="black-gradient-white"></div>
 <?php
         the_content();
         astra_primary_content_bottom();
