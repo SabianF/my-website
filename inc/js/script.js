@@ -5,7 +5,7 @@ $(document).ready(function(){
         "scrollY": "500px",
         "scrollCollapse": true,
         "paging": false
-    });//$('#workout_table').DataTable
+    });
     
     //Table highlighting on mouse hover
     $('#workout_table tbody tr').on('mouseenter',function(){
@@ -22,8 +22,10 @@ $(document).ready(function(){
     });
     
     //Edit cell on double-click
-    $('#workout_table tbody tr td').on('dblclick',function(){
-        if (!($(this).html().indexOf('<input type="text"') >= 0))
+    $(document).on('dblclick','#workout_table tbody tr td',function(){
+        
+        //if not already editing
+        if ($(this).html().indexOf('<input type="text"') < 0)
         {
             var td  = ($(this).html() ? $(this).text() : $(this).val() );
             var cw  = Math.floor(($(this).width()-30) / 10);
@@ -40,7 +42,6 @@ $(document).ready(function(){
         $(this).parent().html("").append(txt);
     });
     
-    //TODO: not working
     //Save cell edit value when enter key pressed
     $(document).on('keyup','#cell-edit',function(k){
         
@@ -65,10 +66,34 @@ $(document).ready(function(){
         var ci = $('#count_input'   ).val();
         var pi = $('#points_input'  ).val();
         
+        //Reset all red form field borders
+        $('#date_input'    ).css('border','');
+        $('#workout_input' ).css('border','');
+        $('#count_input'   ).css('border','');
+        $('#points_input'  ).css('border','');
+        
         //Error if any fields are empty
         if (!di || !wi || !ci || !pi)
         {
-            //Remove failure text if displayed
+            //Mark empty fields red
+            if (!di)
+            {
+                $('#date_input'     ).css("border", "2px inset red");
+            }
+            if (!wi)
+            {
+                $('#workout_input'  ).css("border", "2px inset red");
+            }
+            if (!ci)
+            {
+                $('#count_input'    ).css("border", "2px inset red");
+            }
+            if (!pi)
+            {
+                $('#points_input'   ).css("border", "2px inset red");
+            }
+            
+            //Remove success text if displayed
             if ($('#addData-success').length)
             {
                 $('#addData-success').remove();
@@ -80,7 +105,7 @@ $(document).ready(function(){
                 $('#addData_button').after('<p id="addData-fail">Please fill out all fields!</p>');
             }
             return;
-        }
+        }//Error if any fields are empty
         
         //Add new row to table using input data
         t.row.add([
