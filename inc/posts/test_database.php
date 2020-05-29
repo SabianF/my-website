@@ -32,6 +32,11 @@
 	    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	    crossorigin="anonymous">
     
+    <!-- JSON -->
+    <!--
+    <script src="/wp-content/themes/astra-child/inc/resources/json/json2.js"></script>
+    -->
+    
     <!-- jQuery -->
     <script
 	  src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -43,14 +48,8 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/fh-3.1.7/r-2.2.4/sc-2.0.2/sp-1.1.0/sl-1.3.1/datatables.min.css"/>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.21/af-2.3.5/b-1.6.2/b-colvis-1.6.2/b-flash-1.6.2/b-html5-1.6.2/b-print-1.6.2/fh-3.1.7/r-2.2.4/sc-2.0.2/sp-1.1.0/sl-1.3.1/datatables.min.js"></script>
     
-    <!-- Leaflet -->
-    <link rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-        crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-        crossorigin=""></script>
+    <!-- Data Visualization: D3 v5.16.0 -->
+    <script src="/wp-content/themes/astra-child/inc/resources/d3/d3.min.js"></script>
 </head>
 <body>
 	<div id="primary" <?php astra_primary_class(); ?>>
@@ -101,6 +100,15 @@
     	<div class="theme1" id="viz-section">
     	    <h2 class="center">Data Visualizations</h2><br>
     	    <p class="center">Coming soon...</p>
+    	    <div class="center-stb" id="chart-bar">
+    	        <label for="sort-type">Sort Type:</label><br>
+                <select id="sort-type" name="sort-type">
+                  <option value="0">None      </option>
+                  <option value="1">Asending  </option>
+                  <option value="2">Descending</option>
+                </select><br>
+                <svg id="bars" width="600" height="500"></svg>
+            </div><!-- #chart-bar -->
     	</div><!-- #viz-section --->
 <?php
         the_content();
