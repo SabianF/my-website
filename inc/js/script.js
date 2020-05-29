@@ -7,6 +7,32 @@ $(document).ready(function(){
         "paging": false
     });
     
+    //Initialize D3
+    var svg = d3.select("#bars")
+        ,margin = 200
+        ,width = svg.attr("width") - margin
+        ,height = svg.attr("height") - margin;
+
+
+    var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
+        yScale = d3.scaleLinear().range ([height, 0]);
+
+    var g = svg.append("g")
+               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+    
+    //TODO: d3.json function not executing
+    d3.json("/wp-content/themes/astra-child/inc/auth/sabian_eg_workout_json.php", function(error, data) {
+        if (error)
+        {
+            throw error;
+        }
+        
+        data.forEach(function(d) {
+            d.Date = parseDate(d.Date);
+            d.Points = +d.Points;
+        });//data.forEach
+    });//d3.json
+    
     //Table highlighting on mouse hover
     $('#workout_table tbody tr').on('mouseenter',function(){
         $(this).css('background-color','#EEE');
@@ -133,3 +159,24 @@ $(document).ready(function(){
     });//$('#addData_button').on('click',function()
     
 });//$(document).ready(function()
+
+/**
+ * Check if file exists, and display alert for result
+ */
+function file_exists(p)
+{
+    $.ajax({
+        url:p,
+        type:'HEAD',
+        error: function()
+        {
+            //file not exists
+            alert("not found: "+p);
+        },
+        success: function()
+        {
+            //file exists
+            alert("found: "+p);
+        }
+    });
+}
