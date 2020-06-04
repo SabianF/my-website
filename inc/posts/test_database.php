@@ -74,8 +74,8 @@
         <div class="flex-container theme2" id="table-section">
             <div class="flex-child" id="table-display">
                 <h2 class="center">Example Data Table</h2><br>
-                <p class="center"><i>(Double-click to edit values)</i></p>
-                <?php db_display(); ?>
+                <p class="center"><i>(Double-click to edit values)</i></p><br>
+                <?php echo db_display(); ?>
             </div><!-- #table-display -->
             <div class="flex-child center" id="table-form-fields">
                 <h4 id="addRow">Add New Entry</h4><br>
@@ -100,15 +100,22 @@
     	<div class="theme1" id="viz-section">
     	    <h2 class="center">Data Visualizations</h2><br>
     	    <p class="center">Coming soon...</p>
-    	    <div class="center-stb" id="chart-bar">
-    	        <label for="sort-type">Sort Type:</label><br>
-                <select id="sort-type" name="sort-type">
-                  <option value="0">None      </option>
-                  <option value="1">Asending  </option>
-                  <option value="2">Descending</option>
-                </select><br>
-                <svg id="bars" width="600" height="500"></svg>
-            </div><!-- #chart-bar -->
+            <div class="flex-container center-sb" id="viz-charts">
+                <div class="flex-child center" id="viz-bar">
+                    <h3>Bar Chart</h3><br>
+    	            <label for="sort-type">Sort Type:</label><br>
+                    <select id="sort-type" name="sort-type">
+                      <option value="0">None      </option>
+                      <option value="1">Asending  </option>
+                      <option value="2">Descending</option>
+                    </select>
+                    <div id="viz-bar-chart"><p class="center-stb">Under construction...</p></div>
+                </div>
+                <div class="flex-child center" id="viz-line">
+                    <h3>Line Graph</h3><br>
+                    <div id="viz-line-graph" style="margin-top: 60px;"><p class="center-stb">Under construction...</p></div>
+                </div>
+            </div><!-- #viz-charts --->
     	</div><!-- #viz-section --->
 <?php
         the_content();
