@@ -2,38 +2,21 @@ $(document).ready(function(){
     
     //Initialize DataTable for workout_table
     var t = $('#workout_table').DataTable({
-        "scrollY": "500px",
-        "scrollCollapse": true,
-        "paging": false
+        "scrollY"           : "500px"
+        ,"scrollCollapse"   : true
+        ,"paging"           : false
     });
     
-    //Initialize D3
-    var svg = d3.select("#bars")
-        ,margin = 200
-        ,width = svg.attr("width") - margin
-        ,height = svg.attr("height") - margin;
-
-
-    var xScale = d3.scaleBand().range ([0, width]).padding(0.4),
-        yScale = d3.scaleLinear().range ([height, 0]);
-
-    var g = svg.append("g")
-               .attr("transform", "translate(" + 100 + "," + 100 + ")");
+    //TODO: D3 Bar Chart
+    file_exists("/wp-content/themes/astra-child/inc/auth/sabian_eg_workout_json.php");
+    d3.select('div #viz-bar-chart');
     
-    //TODO: d3.json function not executing
-    d3.json("/wp-content/themes/astra-child/inc/auth/sabian_eg_workout_json.php", function(error, data) {
-        if (error)
-        {
-            throw error;
-        }
-        
-        data.forEach(function(d) {
-            d.Date = parseDate(d.Date);
-            d.Points = +d.Points;
-        });//data.forEach
-    });//d3.json
+    //TODO: D3 Line Graph
+    d3.select('div #viz-line-graph');
     
-    //Table highlighting on mouse hover
+    //Table highlighting/tooltips on mouse hover
+    $('#workout_table tbody tr td').attr('title','Double-click to edit');
+    
     $('#workout_table tbody tr').on('mouseenter',function(){
         $(this).css('background-color','#EEE');
     });
@@ -71,14 +54,14 @@ $(document).ready(function(){
     //Save cell edit value when enter key pressed
     $(document).on('keyup','#cell-edit',function(k){
         
-        //break when keypressed != 'enter'
+        //do nothing if keypressed is not 'enter'
         var key = k.which;
         if(key!=13)
         {
             return;
         }
         
-        //when keypressed is 'enter'
+        //if keypressed is 'enter'
         var txt = $(this).val();
         $(this).parent().html("").append(txt);
     });
@@ -155,13 +138,14 @@ $(document).ready(function(){
         {
             $('#addData_button').after('<p id="addData-success">New data added successfully!</p>');
         }
-        
-    });//$('#addData_button').on('click',function()
+    });//$('#addData_button').on('click'
     
 });//$(document).ready(function()
 
 /**
  * Check if file exists, and display alert for result
+ * 
+ * @param p file or path to check
  */
 function file_exists(p)
 {
@@ -170,13 +154,15 @@ function file_exists(p)
         type:'HEAD',
         error: function()
         {
-            //file not exists
-            alert("not found: "+p);
+            var retVal = 'file/path NOT found: '+p;
+            console.log(retVal);
+            return retVal;
         },
         success: function()
         {
-            //file exists
-            alert("found: "+p);
+            var retVal = 'file/path found: '+p;
+            console.log(retVal);
+            return retVal;
         }
     });
 }
