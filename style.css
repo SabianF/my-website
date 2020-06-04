@@ -14,6 +14,22 @@
 /**
  * Page General
  */
+div .error-notice
+{
+    padding-top     : 10px;
+    padding-bottom  : 10px;
+    margin-top      : 10px;
+    margin-bottom   : 10px;
+    border          : 2px dotted orange;
+}
+div #file-exists
+{
+    color: darkgreen;
+}
+div #file-not-exists
+{
+    color: darkred;
+}
 body
 {
     background:#FFF;
@@ -67,36 +83,49 @@ button:hover
 {
     text-shadow: 2px 2px black;
 }
-#addData-fail
-{
-    padding-top :20px   ;
-    color       :red    ;
-    font-weight :bold   ;
-}
-#addData-success
-{
-    padding-top :20px   ;
-    color       :green  ;
-    font-weight :bold   ;
-}
 #table-form-fields
 {
     padding-top:160px;
+}
+#addData-fail
+{
+    margin-top: 10px;
+    color: red;
+    font-weight: bold;
+}
+#addData-success
+{
+    margin-top: 10px;
+    color: green;
+    font-weight: bold;
+}
+#about-tab
+{
+    font-weight:bold;
+    text-decoration:italic;
+}
+#workout_table tbody tr td
+{
+    cursor: pointer;
 }
 
 /* Accent colours 1 */
 div .theme1
 {
-    background: #FFF;
-    width:      100%;
-    padding:    60px;
+    background      : #FFF;
+    padding-top     : 60px;
+    padding-bottom  : 60px;
+    padding-left    : 20px;
+    padding-right   : 20px;
 }
 /* Accent colours 2 */
 div .theme2
 {
-    background: #e7e7ff;
-    width:      100%;
-    padding:    60px;
+    background      : #cde6ff;
+    padding-top     : 60px;
+    padding-bottom  : 60px;
+    padding-left    : 20px;
+    padding-right   : 20px;
 }
 h1 h2 h3 .theme2
 {
@@ -107,44 +136,22 @@ h1 h2 h3 .theme2
  * Floats & Columns
  */
 .flex-container {
-    display:    flex;
-    flex-wrap:  wrap;
-    padding:    20px;
+    display     : flex;
+    flex-wrap   : wrap;
 }
 .flex-child {
-    flex:   1;
-    padding:20px;
+    flex    : 1;
 }
-.columns-2 {
-    -webkit-column-count:   2;
-    -moz-column-count:      2;
-    -ms-column-count:       2;
-    column-count:           2;
-    -webkit-column-width:   200px;
-    -moz-column-width:      200px;
-    -ms-column-width:       200px;
-    column-width:           200px;
-    height:                 600px;
-}
-.columns-3 {
-    -webkit-column-count:   3;
-    -moz-column-count:      3;
-    -ms-column-count:       3;
-    column-count:           3;
-    -webkit-column-width:   300px;
-    -moz-column-width:      300px;
-    -ms-column-width:       300px;
-    column-width:           300px;
-}
-.columns-4 {
-    -webkit-column-count:   4;
-    -moz-column-count:      4;
-    -ms-column-count:       4;
-    column-count:           4;
-    -webkit-column-width:   300px;
-    -moz-column-width:      300px;
-    -ms-column-width:       300px;
-    column-width:           300px;
+@media only screen and (max-width: 600px)
+{
+    .flex-container
+    {
+        padding:0;
+    }
+    .flex-child
+    {
+        padding:0;
+    }
 }
 
 /**
